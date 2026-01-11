@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Telegram Report</title>
+
+<style>
+:root{
+  --accent:#ff2a2a;
+  --bg:#0b0b0f;
+  --card:rgba(0,0,0,.65);
+  --text:#eaeaf0;
+}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,.9)),
+    url("https://raw.githubusercontent.com/albdallhbdalqwy24-pixel/hshsbshdh/b2d653d42880e76ce28ff7ca40c951676fe3cf3a/IMG_20260111_125313_911.jpg") center/cover no-repeat fixed;
+}
+.container{max-width:520px;margin:auto;padding:24px}
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  backdrop-filter:blur(6px)
+}
+h1{margin:0 0 10px;font-size:26px}
+label{font-size:13px;opacity:.85}
+input,textarea{
+  width:100%;
+  margin-top:6px;
+  margin-bottom:14px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(10,10,14,.7);
+  color:var(--text)
+}
+textarea{min-height:120px}
+button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  background:linear-gradient(135deg,var(--accent),#ff6b6b);
+  color:#000;
+  font-weight:700;
+  cursor:pointer
+}
+.footer{
+  margin-top:14px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  opacity:.8
+}
+.lang{
+  margin-top:10px;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);
+  padding:6px;
+  border-radius:10px
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="card">
+    <h1 id="title">Report Telegram Channel</h1>
+
+    <label id="l1">Support Email</label>
+    <input id="email" placeholder="abuse@telegram.org">
+
+    <label id="l2">Subject</label>
+    <input id="subject" placeholder="Report of Pornographic and Sexually Explicit Content">
+
+    <label id="l3">Report Text</label>
+    <textarea id="body"></textarea>
+
+    <button onclick="sendMail()" id="send">Send Report</button>
+
+    <div class="lang" onclick="toggleLang()" id="langBtn">العربية</div>
+
+    <div class="footer">
+      <span>Developer: <b>@vxxsmk</b></span>
+      <span>QuickTelegramReport</span>
+    </div>
+  </div>
+</div>
+
+<script>
+let ar=false;
+function sendMail(){
+  const e=document.getElementById("email").value;
+  const s=encodeURIComponent(document.getElementById("subject").value);
+  const b=encodeURIComponent(document.getElementById("body").value);
+  location.href=`mailto:${e}?subject=${s}&body=${b}`;
+}
+function toggleLang(){
+  ar=!ar;
+  document.getElementById("title").innerText=ar?'الإبلاغ عن قناة تلجرام':'Report Telegram Channel';
+  document.getElementById("l1").innerText=ar?'بريد الدعم':'Support Email';
+  document.getElementById("l2").innerText=ar?'الموضوع':'Subject';
+  document.getElementById("l3").innerText=ar?'نص البلاغ':'Report Text';
+  document.getElementById("send").innerText=ar?'إرسال البلاغ':'Send Report';
+  document.getElementById("langBtn").innerText=ar?'English':'العربية';
+}
+</script>
+</body>
+</html>
