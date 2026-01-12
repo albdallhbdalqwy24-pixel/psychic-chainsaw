@@ -1,1 +1,382 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quick Telegram Report</title><style>:root{--a:#ff2a2a;--c:rgba(0,0,0,.65);--t:#eaeaf0}*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}body{margin:0;min-height:100vh;color:var(--t);background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,.9)),url("https://raw.githubusercontent.com/albdallhbdalqwy24-pixel/hshwhwh/6ac937e46630e7e5ea886fec205b8c14ce0327ba/IMG_20260106_023922_255.jpg") center/cover no-repeat fixed}.container{max-width:520px;margin:auto;padding:24px}.card{background:var(--c);border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.6);backdrop-filter:blur(6px)}h1{margin:0 0 10px;font-size:26px}label{font-size:13px;opacity:.85}input,textarea{width:100%;margin:6px 0 14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(10,10,14,.7);color:var(--t)}textarea{min-height:120px}button{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--a),#ff6b6b);color:#000;font-weight:700;cursor:pointer}.footer{margin-top:14px;display:flex;justify-content:space-between;font-size:12px;opacity:.8}.lang{margin-top:10px;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,.2);padding:6px;border-radius:10px}</style></head><body oncontextmenu="return false"><div class="container"><div class="card"><h1 id="t">Report Telegram Channel</h1><label id="l1">Support Email</label><input id="e" placeholder="abuse@telegram.org"><label id="l2">Subject</label><input id="s" placeholder="Report of Pornographic and Sexually Explicit Content"><label id="l3">Report Text</label><textarea id="b"></textarea><button id="x">Send Report</button><div class="lang" id="g">العربية</div><div class="footer"><span>Developer: <b>@vxxsmk</b></span><span>QuickTelegramReport</span></div></div></div><script>(function(){let a=!1,d=i=>document.getElementById(i);document.addEventListener("keydown",function(e){if(e.keyCode===123||e.ctrlKey&&e.shiftKey&&["I","C","J"].includes(e.key)||e.ctrlKey&&e.key==="u")e.preventDefault()});d("x").onclick=function(){let m=d("e").value||"abuse@telegram.org",s=encodeURIComponent(d("s").value),b=encodeURIComponent(d("b").value);location.href="mailto:"+m+"?subject="+s+"&body="+b};d("g").onclick=function(){a=!a,d("t").innerText=a?"الإبلاغ عن قناة تلجرام":"Report Telegram Channel",d("l1").innerText=a?"بريد الدعم":"Support Email",d("l2").innerText=a?"الموضوع":"Subject",d("l3").innerText=a?"نص البلاغ":"Report Text",d("x").innerText=a?"إرسال البلاغ":"Send Report",d("g").innerText=a?"English":"العربية"}})();</script></body></html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>المعتزل بوقاصد اليافعي</title>
+<style>
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;transition:.3s}
+html,body{margin:0;min-height:100%;transition:.6s}
+body{
+  background:
+  linear-gradient(var(--overlay-strong),var(--overlay)),
+  url("https://raw.githubusercontent.com/albdallhbdalqwy24-pixel/hshwhwh/6ac937e46630e7e5ea886fec205b8c14ce0327ba/IMG_20260106_023922_255.jpg")
+  center/cover fixed;
+  color:var(--txt);
+}
+
+/* ثيمات */
+body[data-theme="dark"]{
+ --overlay:rgba(0,0,0,.45);
+ --overlay-strong:rgba(0,0,0,.85);
+ --card:rgba(18,18,24,.88);
+ --txt:#f2f2f6;
+ --muted:#b9b9c6;
+ --accent:#ff2a2a;
+ --accent2:#ff6b6b;
+ --progress:#ff4d4d;
+}
+body[data-theme="blue"]{
+ --overlay:rgba(5,10,25,.45);
+ --overlay-strong:rgba(5,10,25,.9);
+ --card:rgba(15,20,40,.9);
+ --txt:#eef1ff;
+ --muted:#b8c0ff;
+ --accent:#4f7cff;
+ --accent2:#6ea0ff;
+ --progress:#4f7cff;
+}
+body[data-theme="purple"]{
+ --overlay:rgba(20,0,30,.45);
+ --overlay-strong:rgba(20,0,30,.9);
+ --card:rgba(40,20,55,.9);
+ --txt:#f7efff;
+ --muted:#d1bfff;
+ --accent:#b66cff;
+ --accent2:#d39bff;
+ --progress:#b66cff;
+}
+body[data-theme="green"]{
+ --overlay:rgba(0,20,10,.45);
+ --overlay-strong:rgba(0,30,15,.9);
+ --card:rgba(10,35,25,.9);
+ --txt:#eafff6;
+ --muted:#a6f3d1;
+ --accent:#3ddc97;
+ --accent2:#6fffc1;
+ --progress:#3ddc97;
+}
+
+/* واجهة البطاقة */
+.container{max-width:520px;margin:auto;padding:24px}
+.card{
+ background:var(--card);
+ border-radius:22px;
+ padding:22px;
+ box-shadow:0 25px 70px rgba(0,0,0,.7);
+ backdrop-filter:blur(10px);
+ animation:enter .7s ease;
+ transition:.5s;
+}
+
+/* أنيميشن دخول */
+@keyframes enter{
+ from{opacity:0;transform:translateY(20px)}
+ to{opacity:1;transform:none}
+}
+
+/* هيدر */
+.header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:10px;
+}
+
+h1{font-size:22px;margin:0;transition:.5s}
+
+.icon-btn{
+ background:none;
+ border:none;
+ font-size:16px;
+ color:var(--txt);
+ cursor:pointer;
+ padding:6px 10px;
+ border-radius:12px;
+ transition:.3s;
+}
+.icon-btn:hover{background:rgba(255,255,255,.1);}
+
+/* الحقول */
+label{font-size:13px;color:var(--muted)}
+input,textarea{
+ width:100%;
+ margin:6px 0 14px;
+ padding:12px 14px;
+ border-radius:14px;
+ border:1px solid rgba(255,255,255,.15);
+ background:rgba(10,10,14,.6);
+ color:var(--txt);
+ transition:.3s, box-shadow .3s, transform .3s;
+}
+input:hover,textarea:hover{background:rgba(10,10,14,.75);}
+
+/* Focus Animation للحقول */
+input:focus, textarea:focus {
+ outline: none;
+ box-shadow: 0 0 10px var(--accent);
+ border-color: var(--accent);
+ transform: scale(1.02);
+ transition: all 0.3s ease;
+}
+
+textarea{min-height:120px}
+
+/* زر الإرسال */
+button.main{
+ width:100%;
+ padding:15px;
+ border-radius:16px;
+ border:none;
+ background:linear-gradient(135deg,var(--accent),var(--accent2));
+ font-weight:800;
+ cursor:pointer;
+ transition:.3s;
+}
+button.main:hover{
+ transform:scale(1.03);
+ box-shadow:0 0 12px var(--accent);
+}
+
+/* أزرار أخرى */
+.actions{
+ display:flex;
+ gap:10px;
+ margin-top:10px
+}
+.actions button{
+ flex:1;
+ padding:10px;
+ border-radius:12px;
+ border:none;
+ cursor:pointer;
+ background:rgba(255,255,255,.1);
+ color:var(--txt);
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:6px;
+ transition:.3s;
+}
+.actions button:hover{background:rgba(255,255,255,.2);}
+
+/* العداد */
+.counter{
+ margin-top:10px;
+ font-size:13px;
+ text-align:center;
+ color:var(--muted);
+ position:relative;
+}
+.counter b{
+ display:inline-block;
+ background:red;
+ color:#fff;
+ padding:2px 8px;
+ border-radius:12px;
+ margin-left:6px;
+ transition:.3s;
+}
+
+/* Progress Bar */
+#progress-bar{
+ height:6px;
+ border-radius:6px;
+ background:rgba(255,255,255,.2);
+ overflow:hidden;
+ margin-top:4px;
+}
+#progress-fill{
+ height:100%;
+ width:0%;
+ background:var(--progress);
+ border-radius:6px;
+ transition:width .5s,background .5s;
+}
+
+/* الفوتر */
+.footer{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-top:16px;
+ font-size:12px;
+ opacity:.85;
+}
+
+.footer a:hover{color:var(--accent);}
+
+/* Responsive */
+@media(max-width:560px){
+ h1{font-size:20px}
+ input,textarea,button{font-size:14px}
+}
+</style>
+</head>
+
+<body data-theme="dark" oncontextmenu="return false">
+<div class="container">
+<div class="card">
+
+<div class="header">
+<h1 id="title">المعتزل بوقاصد اليافعي</h1>
+<div>
+<button id="theme" class="icon-btn">🎨</button>
+<button id="lang" class="icon-btn">🇺🇸 English</button>
+</div>
+</div>
+
+<label id="l-email" title="أدخل البريد الذي سيتم إرسال البلاغ إليه">بريد الدعم</label>
+<input id="email" placeholder="abuse@telegram.org">
+
+<label id="l-subject" title="أدخل موضوع البلاغ">الموضوع</label>
+<input id="subject">
+
+<label id="l-body" title="أدخل نص البلاغ">نص البلاغ</label>
+<textarea id="body"></textarea>
+
+<button class="main" id="send">📤 إرسال البلاغ</button>
+
+<div class="actions">
+<button id="reuse">↺ استخدام آخر نص</button>
+<button id="reset">🗑️ تصفير العداد</button>
+</div>
+
+<div class="counter">
+<span id="counter-text">عدد البلاغات المرسلة:</span> <b id="count">0</b>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+</div>
+
+<div class="footer">
+<span>المعتزل بوقاصد اليافعي</span>
+<a id="contact" href="https://t.me/vxxsmk" target="_blank" style="color:var(--txt);text-decoration:none">
+تواصل مع المطور
+</a>
+</div>
+
+</div>
+</div>
+
+<script>
+const d=i=>document.getElementById(i);
+
+/* حفظ المسودات */
+["email","subject","body"].forEach(id=>{
+ d(id).value=localStorage[id]||"";
+ d(id).oninput=()=>localStorage[id]=d(id).value;
+});
+
+/* عداد البلاغات */
+let count = Number(localStorage.count||0);
+d("count").innerText = count;
+
+function updateProgress(){
+ let p = Math.min((count/100)*100,100); 
+ d("progress-fill").style.width = p+"%";
+}
+updateProgress();
+
+/* إرسال البلاغ */
+d("send").onclick=()=>{
+ let e=d("email").value||"abuse@telegram.org";
+ let s=encodeURIComponent(d("subject").value);
+ let b=encodeURIComponent(d("body").value);
+ localStorage.lastText=d("body").value;
+
+ count +=1;
+ localStorage.count = count;
+ d("count").innerText = count;
+ updateProgress();
+
+ location.href=`mailto:${e}?subject=${s}&body=${b}`;
+};
+
+/* استخدام آخر نص */
+d("reuse").onclick=()=>{
+ if(localStorage.lastText)
+  d("body").value=localStorage.lastText;
+};
+
+/* تصفير العداد */
+d("reset").onclick=()=>{
+ if(confirm("هل تريد تصفير عداد البلاغات؟")){
+  count = 0;
+  localStorage.count = 0;
+  d("count").innerText = 0;
+  updateProgress();
+ }
+};
+
+/* الثيمات */
+const themes=["dark","blue","purple","green"];
+let ti=Number(localStorage.theme||0);
+document.body.setAttribute("data-theme",themes[ti]);
+
+d("theme").onclick=()=>{
+ ti=(ti+1)%themes.length;
+ document.body.setAttribute("data-theme",themes[ti]);
+ localStorage.theme=ti;
+ updateProgress();
+};
+
+/* اللغة مع fade و علم صحيح */
+let lang = localStorage.lang || "ar";
+const langBtn = d("lang");
+
+const T = {
+ ar:{
+  title:"المعتزل بوقاصد اليافعي",
+  email:"بريد الدعم",
+  subject:"الموضوع",
+  body:"نص البلاغ",
+  send:"إرسال البلاغ",
+  reuse:"استخدام آخر نص",
+  reset:"تصفير العداد",
+  counter:"عدد البلاغات المرسلة:",
+  contact:"تواصل مع المطور",
+  btnText:"🇺🇸 English"
+ },
+ en:{
+  title:"Bugaasd Al-Yafei (Retired)",
+  email:"Support Email",
+  subject:"Subject",
+  body:"Report Text",
+  send:"Send Report",
+  reuse:"Use Last Text",
+  reset:"Reset Counter",
+  counter:"Reports sent:",
+  contact:"Contact Developer",
+  btnText:"🇾🇪 العربية"
+ }
+};
+
+function applyLang(){
+ const t=T[lang];
+ const card=d("title").parentElement.parentElement;
+ card.style.opacity=0;
+ setTimeout(()=>{
+   document.documentElement.lang=lang;
+   d("title").innerText=t.title;
+   d("l-email").innerText=t.email;
+   d("l-subject").innerText=t.subject;
+   d("l-body").innerText=t.body;
+   d("send").innerText=t.send;
+   d("reuse").innerText=t.reuse;
+   d("reset").innerText=t.reset;
+   d("counter-text").innerText=t.counter;
+   d("contact").innerText=t.contact;
+   langBtn.innerText = t.btnText;
+   card.style.opacity=1;
+ },200);
+}
+
+applyLang();
+
+langBtn.onclick=()=>{
+ lang = (lang==="ar")?"en":"ar";
+ localStorage.lang = lang;
+ applyLang();
+};
+</script>
+</body>
+</html>
