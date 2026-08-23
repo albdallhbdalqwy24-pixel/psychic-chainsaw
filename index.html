@@ -57,10 +57,10 @@ button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
 .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) scale(0);background:var(--accent);color:#fff;padding:12px 20px;border-radius:14px;z-index:9999;font-weight:800;transition:transform .4s ease,opacity .4s ease;opacity:0}
 .toast.show{transform:translateX(-50%) scale(1);opacity:1;animation:toastPulse .6s ease infinite}
 @keyframes toastPulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.05)}}
-@media(max-width:560px){h1{font-size:20px}input,textarea,button{font-size:14px}}
+.welcome-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.68);backdrop-filter:blur(8px);z-index:10000;animation:overlayIn .35s ease}.welcome-box{width:min(100%,480px);background:var(--card);color:var(--txt);border:1px solid var(--accent);border-radius:22px;padding:24px;text-align:center;box-shadow:0 20px 80px rgba(0,0,0,.75),0 0 28px color-mix(in srgb,var(--accent) 35%,transparent);animation:noticeIn .45s ease}.welcome-box h2{margin:0 0 12px;font-size:21px;color:var(--accent2)}.welcome-box p{margin:0;line-height:1.8;font-size:15px}.welcome-progress{height:4px;margin-top:20px;border-radius:5px;background:rgba(255,255,255,.16);overflow:hidden}.welcome-progress span{display:block;height:100%;width:100%;background:var(--accent);transform-origin:right;animation:noticeTimer 10s linear forwards}@keyframes overlayIn{from{opacity:0}to{opacity:1}}@keyframes noticeIn{from{opacity:0;transform:translateY(15px) scale(.96)}to{opacity:1;transform:none}}@keyframes noticeTimer{from{transform:scaleX(1)}to{transform:scaleX(0)}}@media(max-width:560px){h1{font-size:20px}input,textarea,button{font-size:14px}}
 </style>
 </head>
-<body data-theme="dark" oncontextmenu="return false">
+<body data-theme="dark">
 
 <div class="container">
 <div class="card">
@@ -110,6 +110,14 @@ button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
 
 <div id="toast" class="toast"></div>
 
+<div id="welcomeNotice" class="welcome-overlay" role="dialog" aria-live="polite">
+  <div class="welcome-box">
+    <h2>السلام عليكم</h2>
+    <p>عدنا لكم بعد غياب، وعدنا لتعديل أخطاء على الموقع، وأي أخطاء تصادفها راسلوني عبر زر التواصل في أسفل الموقع.</p>
+    <div class="welcome-progress" aria-hidden="true"><span></span></div>
+  </div>
+</div>
+
 <script>
 const d=i=>document.getElementById(i);
 ["email","subject","body"].forEach(id=>{ d(id).value=localStorage[id]||""; d(id).oninput=()=>localStorage[id]=d(id).value; });
@@ -133,7 +141,13 @@ d("send").onclick=()=>{
    d("subject").value=extrasData[idx].subject;
    d("body").value=extrasData[idx].text;
  }
- location.href=`mailto:${e}?subject=${s}&body=${b}`;
+ const mailtoUrl=`mailto:${e.trim()}?subject=${s}&body=${b}`;
+	 const mailLink=document.createElement("a");
+	 mailLink.href=mailtoUrl;
+	 mailLink.style.display="none";
+	 document.body.appendChild(mailLink);
+	 mailLink.click();
+	 setTimeout(()=>mailLink.remove(),1000);
 };
 
 d("reuse").onclick=()=>{if(localStorage.lastText) d("body").value=localStorage.lastText;};
@@ -208,6 +222,8 @@ d("addText").onclick=()=>{
 };
 
 function showToast(msg){const toast=d("toast");toast.innerText=msg;toast.classList.add("show");setTimeout(()=>{toast.classList.remove("show")},2000)}
+
+setTimeout(()=>{const notice=d("welcomeNotice");if(notice){notice.style.opacity="0";notice.style.transition="opacity .35s ease";setTimeout(()=>notice.remove(),350)}},10000);
 
 for(let i=0;i<50;i++){
  let snow=document.createElement("div");
