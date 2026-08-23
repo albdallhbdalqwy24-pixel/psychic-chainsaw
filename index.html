@@ -13,7 +13,7 @@ body[data-theme="blue"]{--overlay:rgba(5,10,25,.45);--overlay-strong:rgba(5,10,2
 body[data-theme="purple"]{--overlay:rgba(20,0,30,.45);--overlay-strong:rgba(20,0,30,.9);--card:rgba(40,20,55,.9);--txt:#f7efff;--muted:#d1bfff;--accent:#b66cff;--accent2:#d39bff;--progress:#b66cff;}
 body[data-theme="green"]{--overlay:rgba(0,20,10,.45);--overlay-strong:rgba(0,30,15,.9);--card:rgba(10,35,25,.9);--txt:#eafff6;--muted:#a6f3d1;--accent:#3ddc97;--accent2:#6fffc1;--progress:#3ddc97;}
 .container{max-width:520px;margin:auto;padding:24px;position:relative;z-index:1}
-.card{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.7);backdrop-filter:blur(10px);animation:enter .7s ease;transition:.5s;}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025)),var(--card);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px;box-shadow:0 25px 70px rgba(0,0,0,.7),0 0 0 1px rgba(255,42,42,.04);backdrop-filter:blur(16px);animation:enter .7s ease;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;} .card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 32%,transparent);box-shadow:0 30px 80px rgba(0,0,0,.72),0 0 28px color-mix(in srgb,var(--accent) 10%,transparent);} body::before{content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(circle at 18% 18%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 34%),radial-gradient(circle at 82% 72%,color-mix(in srgb,var(--accent2) 16%,transparent),transparent 30%);filter:blur(20px);animation:aurora 18s ease-in-out infinite alternate;} @keyframes aurora{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(2%,1%,0) scale(1.08)}} @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 @keyframes enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 h1{font-size:22px;margin:0;transition:.5s}
@@ -26,7 +26,7 @@ input:focus,textarea:focus{outline:none;box-shadow:0 0 15px var(--accent);border
 input:active,textarea:active{box-shadow:0 0 15px var(--accent2) inset}
 textarea{min-height:120px}
 button.main{width:100%;padding:15px;border-radius:16px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));font-weight:800;cursor:pointer;transition:.3s}
-button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
+button.main:hover{transform:scale(1.015);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 70%,transparent)} button:active{transform:scale(.98)!important} button:disabled{opacity:.68;cursor:wait;transform:none!important} .actions button:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.18)} .draft-status{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;min-height:16px;transition:color .2s ease} .preview-modal{position:fixed;inset:0;z-index:10001;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.58);backdrop-filter:blur(8px);animation:fadeIn .2s ease} .preview-modal[hidden]{display:none} .preview-card{width:min(520px,100%);max-height:min(680px,90vh);overflow:auto;background:var(--card);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:20px;padding:20px;box-shadow:0 24px 80px rgba(0,0,0,.72)} .preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.preview-head h2{margin:0;color:var(--accent2);font-size:19px}.preview-close{border:0;background:rgba(255,255,255,.1);color:var(--txt);width:34px;height:34px;border-radius:50%;font-size:22px;cursor:pointer}.preview-field{margin:10px 0;padding:12px 14px;border-radius:14px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.1)}.preview-field strong{display:block;color:var(--accent2);font-size:12px;margin-bottom:5px}.preview-field p{margin:0;white-space:pre-wrap;word-break:break-word;color:var(--txt);line-height:1.55;font-size:13px}.preview-modal .actions{margin-top:14px}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .actions{display:flex;gap:10px;margin-top:10px}
 .actions button{flex:1;padding:10px;border-radius:12px;border:none;cursor:pointer;background:rgba(255,255,255,.1);color:var(--txt);display:flex;justify-content:center;align-items:center;gap:6px;transition:.3s}
 .actions button:hover{background:rgba(255,255,255,.2)}
@@ -90,9 +90,14 @@ button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
 </div>
 
 <div class="actions">
+<button id="copyAll">📋 نسخ البلاغ</button>
+<button id="preview">👁 معاينة</button>
+</div>
+<div class="actions">
 <button id="reuse">↺ استخدام آخر نص</button>
 <button id="reset">🗑️ تصفير العداد</button>
 </div>
+<div id="draftStatus" class="draft-status" aria-live="polite"></div>
 
 <div class="counter">
 <span id="counter-text">عدد البلاغات المرسلة:</span> <b id="count">0</b>
@@ -108,7 +113,16 @@ button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
 </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<div id="previewModal" class="preview-modal" hidden>
+  <div class="preview-card" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+    <div class="preview-head"><h2 id="previewTitle">معاينة البلاغ</h2><button id="closePreview" class="preview-close" aria-label="إغلاق">×</button></div>
+    <div class="preview-field"><strong id="previewToLabel">إلى</strong><p id="previewTo"></p></div>
+    <div class="preview-field"><strong id="previewSubjectLabel">الموضوع</strong><p id="previewSubject"></p></div>
+    <div class="preview-field"><strong id="previewBodyLabel">نص البلاغ</strong><p id="previewBody"></p></div>
+  </div>
+</div>
 
 <div id="welcomeNotice" class="welcome-overlay" role="dialog" aria-live="polite">
   <div class="welcome-box">
@@ -120,7 +134,7 @@ button.main:hover{transform:scale(1.03);box-shadow:0 0 15px var(--accent)}
 
 <script>
 const d=i=>document.getElementById(i);
-["email","subject","body"].forEach(id=>{ d(id).value=localStorage[id]||""; d(id).oninput=()=>localStorage[id]=d(id).value; });
+["email","subject","body"].forEach(id=>{ d(id).value=localStorage[id]||""; d(id).oninput=()=>{localStorage[id]=d(id).value;d("draftStatus").innerText=lang==="en"?"Draft saved on this device":"تم حفظ المسودة على هذا الجهاز";}; });
 
 let count = Number(localStorage.count||0);
 d("count").innerText = count;
@@ -131,7 +145,12 @@ let extrasData=[];
 let autoToggleActive=false;
 const SWITCH_INTERVAL=5;
 d("send").onclick=()=>{
- let e=d("email").value||"abuse@telegram.org";
+ const sendBtn=d("send");
+ sendBtn.disabled=true;
+ const originalLabel=lang==="en"?"Send Report":"إرسال البلاغ";
+ sendBtn.innerText=lang==="en"?"Preparing email...":"جاري تجهيز البريد...";
+ setTimeout(()=>{sendBtn.disabled=false;sendBtn.innerText=originalLabel;},900);
+ let e=d("email").value.trim()||"abuse@telegram.org";
  let s=encodeURIComponent(d("subject").value);
  let b=encodeURIComponent(d("body").value);
  localStorage.lastText=d("body").value;
@@ -141,7 +160,7 @@ d("send").onclick=()=>{
    d("subject").value=extrasData[idx].subject;
    d("body").value=extrasData[idx].text;
  }
- const mailtoUrl=`mailto:${e.trim()}?subject=${s}&body=${b}`;
+ const mailtoUrl=`mailto:${encodeURI(e)}?subject=${s}&body=${b}`;
 	 const mailLink=document.createElement("a");
 	 mailLink.href=mailtoUrl;
 	 mailLink.style.display="none";
@@ -150,7 +169,12 @@ d("send").onclick=()=>{
 	 setTimeout(()=>mailLink.remove(),1000);
 };
 
-d("reuse").onclick=()=>{if(localStorage.lastText) d("body").value=localStorage.lastText;};
+d("reuse").onclick=()=>{if(localStorage.lastText){d("body").value=localStorage.lastText;localStorage.body=localStorage.lastText;showToast(lang==="en"?"Draft restored":"تمت استعادة آخر نص");}};
+d("copyAll").onclick=async()=>{const text=`إلى: ${d("email").value||"abuse@telegram.org"}\nالموضوع: ${d("subject").value}\n\n${d("body").value}`;try{await navigator.clipboard.writeText(text);showToast(lang==="en"?"Report copied":"تم نسخ البلاغ")}catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();showToast(lang==="en"?"Report copied":"تم نسخ البلاغ")}};
+d("preview").onclick=()=>{d("previewTo").innerText=d("email").value||"abuse@telegram.org";d("previewSubject").innerText=d("subject").value||"—";d("previewBody").innerText=d("body").value||"—";d("previewModal").hidden=false;};
+d("closePreview").onclick=()=>d("previewModal").hidden=true;
+d("previewModal").onclick=e=>{if(e.target===d("previewModal"))d("previewModal").hidden=true;};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")d("previewModal").hidden=true;});
 d("reset").onclick=()=>{if(confirm("هل تريد تصفير عداد البلاغات؟")){count=0;localStorage.count=0;d("count").innerText=0;updateProgress();}};
 
 const themes=["dark","blue","purple","green"];
@@ -161,8 +185,8 @@ d("theme").onclick=()=>{ti=(ti+1)%themes.length;document.body.setAttribute("data
 let lang = localStorage.lang || "ar";
 const langBtn = d("lang");
 const T = { 
- ar:{title:"المعتزل بوقاصد اليافعي",email:"بريد الدعم",subject:"الموضوع",body:"نص البلاغ",send:"إرسال البلاغ",reuse:"استخدام آخر نص",reset:"تصفير العداد",counter:"عدد البلاغات المرسلة:",contact:"تواصل مع المطور",btnText:"🇺🇸 English",extrasBtn:"⚡ الإضافات",autoToggle:"تفعيل التبديل التلقائي",addTextBtn:"إضافة نصوص + موضوع"},
- en:{title:"Bugaasd Al-Yafei (Retired)",email:"Support Email",subject:"Subject",body:"Report Text",send:"Send Report",reuse:"Use Last Text",reset:"Reset Counter",counter:"Reports sent:",contact:"Contact Developer",btnText:"🇾🇪 العربية",extrasBtn:"⚡ Extras",autoToggle:"Activate Auto-Switch",addTextBtn:"Add Text + Subject"} 
+ ar:{title:"المعتزل بوقاصد اليافعي",email:"بريد الدعم",subject:"الموضوع",body:"نص البلاغ",send:"إرسال البلاغ",reuse:"استخدام آخر نص",reset:"تصفير العداد",counter:"عدد البلاغات المرسلة:",contact:"تواصل مع المطور",copyAll:"📋 نسخ البلاغ",preview:"👁 معاينة",previewTitle:"معاينة البلاغ",to:"إلى",draftSaved:"تم حفظ المسودة على هذا الجهاز",btnText:"🇺🇸 English",extrasBtn:"⚡ الإضافات",autoToggle:"تفعيل التبديل التلقائي",addTextBtn:"إضافة نصوص + موضوع"},
+ en:{title:"Bugaasd Al-Yafei (Retired)",email:"Support Email",subject:"Subject",body:"Report Text",send:"Send Report",reuse:"Use Last Text",reset:"Reset Counter",counter:"Reports sent:",contact:"Contact Developer",copyAll:"📋 Copy Report",preview:"👁 Preview",previewTitle:"Report Preview",to:"To",draftSaved:"Draft saved on this device",btnText:"🇾🇪 العربية",extrasBtn:"⚡ Extras",autoToggle:"Activate Auto-Switch",addTextBtn:"Add Text + Subject"} 
 };
 function updateExtrasLang(){
     const rows = document.querySelectorAll(".extra-row");
@@ -186,7 +210,11 @@ function applyLang(){
      d("send").innerText=t.send;
      d("reuse").innerText=t.reuse;
      d("reset").innerText=t.reset;
-     d("counter-text").innerText=t.counter;
+ d("copyAll").innerText=t.copyAll;
+ d("preview").innerText=t.preview;
+ d("previewTitle").innerText=t.previewTitle;
+ d("previewToLabel").innerText=t.to;
+ d("counter-text").innerText=t.counter;
      d("contact").innerText=t.contact;
      d("toggleExtras").innerText=t.extrasBtn;
      d("autoToggle").innerText=t.autoToggle;
