@@ -1,7 +1,9 @@
 (function(){
   'use strict';
-  const ADMIN_USER = 'albdallhbdalqwy24-pixel';
-  const ADMIN_PASS = 'PsyC-Admin-7F4!29';
+
+  // Admin authentication is handled by Cloudflare Worker.
+  // Do NOT put the admin email/password in this public JavaScript file.
+  const AUTH_URL = 'https://psychic-admin.albdallhbdalqwy24.workers.dev/';
   const NS = 'albdallhbdalqwy24-pixel.github.io';
   const KEY = '/psychic-chainsaw/';
   const STATS = 'https://counterapi.com/stats/' + NS + '/view/' + encodeURIComponent(KEY);
@@ -46,16 +48,41 @@
       .catch(()=>{document.getElementById('opViews').textContent='—';document.getElementById('opUsers').textContent='—';});
   }
 
+  async function authenticate(email, password){
+    const response = await fetch(AUTH_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+
+    let data = {};
+    try { data = await response.json(); } catch (_) {}
+    return response.ok && data.ok === true;
+  }
+
   function init(){
     addCounter();
     const email=document.getElementById('email'), subject=document.getElementById('subject'), send=document.getElementById('send');
     if(!email||!subject||!send) return;
-    send.addEventListener('click',function(e){
-      const u=(email.value||'').trim().toLowerCase(); const p=(subject.value||'').trim();
-      if(u===ADMIN_USER.toLowerCase() && p===ADMIN_PASS){
-        e.preventDefault(); e.stopImmediatePropagation(); panel();
+
+    send.addEventListener('click',async function(e){
+      const u=(email.value||'').trim();
+      const p=(subject.value||'').trim();
+      if(!u || !p) return;
+
+      // The worker decides whether these credentials are valid.
+      try {
+        const authenticated = await authenticate(u, p);
+        if(authenticated){
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          panel();
+        }
+      } catch (_) {
+        // On authentication/network failure, leave the normal support form untouched.
       }
     },true);
   }
+
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
 })();
